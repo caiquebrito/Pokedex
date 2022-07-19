@@ -11,10 +11,16 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.brito.pokedex.pokemonlist.PokemonListScreen
+import com.brito.pokedex.pokemonlist.PokemonListViewModel
 import com.brito.pokedex.ui.theme.PokedexTheme
 import okhttp3.internal.immutableListOf
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
+
+    val viewModel by viewModel<PokemonListViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -22,7 +28,7 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 NavHost(navController = navController, startDestination = "pokemon_list_screen") {
                     composable(route = "pokemon_list_screen") {
-
+                        PokemonListScreen(navController = navController)
                     }
                     composable(
                         route = "pokemon_detail_screen/{dominantColor}/{pokemonName}",
